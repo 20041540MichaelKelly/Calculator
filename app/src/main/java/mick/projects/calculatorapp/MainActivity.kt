@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     private var tvInput: TextView? = null
@@ -79,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                        one = prefix + one
                    }
 
-                   tvInput?.text = (one.toDouble() - two.toDouble()).toString()
+                   tvInput?.text = removeZeroAfterDot((one.toDouble() - two.toDouble()).toString())
                } else if (tvValue.contains("/")) {
 
                    val splitValue = tvValue.split("/")
@@ -91,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                        one = prefix + one
                    }
 
-                   tvInput?.text = (one.toDouble() / two.toDouble()).toString()
+                   tvInput?.text = removeZeroAfterDot((one.toDouble() / two.toDouble()).toString())
                } else if (tvValue.contains("*")) {
 
                    val splitValue = tvValue.split("*")
@@ -103,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                        one = prefix + one
                    }
 
-                   tvInput?.text = (one.toDouble() * two.toDouble()).toString()
+                   tvInput?.text = removeZeroAfterDot((one.toDouble() * two.toDouble()).toString())
                } else if (tvValue.contains("+")) {
 
                    val splitValue = tvValue.split("+")
@@ -115,11 +114,20 @@ class MainActivity : AppCompatActivity() {
                        one = prefix + one
                    }
 
-                   tvInput?.text = (one.toDouble() + two.toDouble()).toString()
+                   tvInput?.text = removeZeroAfterDot((one.toDouble() + two.toDouble()).toString())
                }
            } catch (e: ArithmeticException) {
                e.printStackTrace()
            }
         }
+    }
+
+    private fun removeZeroAfterDot(result: String) : String {
+        var value = result
+        if(result.contains(".0")) {
+            value = result.substring(0, result.length-2)
+        }
+
+        return value
     }
 }
